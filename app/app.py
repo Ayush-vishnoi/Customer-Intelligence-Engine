@@ -20,7 +20,8 @@ import pandas as pd
 import streamlit as st
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from app.predictor import Predictor
+sys.path.insert(0, os.path.dirname(__file__))
+from predictor import Predictor
 
 # ── Page config ──────────────────────────────────────────
 st.set_page_config(
