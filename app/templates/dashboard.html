@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — CustomerIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Analytics Dashboard</h1>
+    <p class="page-sub">Real-time customer intelligence overview</p>
+  </div>
+  <div class="header-badge">Live Data</div>
+</div>
+
+<!-- KPI Cards -->
+<div class="kpi-grid" id="kpi-grid">
+  <div class="kpi-card" id="kpi-revenue">
+    <div class="kpi-label">Total Revenue</div>
+    <div class="kpi-value" id="kpi-revenue-val">—</div>
+    <div class="kpi-sub" id="kpi-revenue-sub">loading...</div>
+  </div>
+  <div class="kpi-card accent-teal" id="kpi-customers">
+    <div class="kpi-label">Customers</div>
+    <div class="kpi-value" id="kpi-customers-val">—</div>
+    <div class="kpi-sub" id="kpi-customers-sub">loading...</div>
+  </div>
+  <div class="kpi-card accent-coral" id="kpi-churn">
+    <div class="kpi-label">Churn Rate</div>
+    <div class="kpi-value" id="kpi-churn-val">—</div>
+    <div class="kpi-sub">inactive &gt; 90 days</div>
+  </div>
+  <div class="kpi-card accent-amber" id="kpi-clv">
+    <div class="kpi-label">Avg. Predicted CLV</div>
+    <div class="kpi-value" id="kpi-clv-val">—</div>
+    <div class="kpi-sub">per customer</div>
+  </div>
+  <div class="kpi-card accent-purple">
+    <div class="kpi-label">Pareto Concentration</div>
+    <div class="kpi-value" id="kpi-pareto-val">—</div>
+    <div class="kpi-sub">of customers → 80% revenue</div>
+  </div>
+  <div class="kpi-card accent-green">
+    <div class="kpi-label">Loyalty Multiplier</div>
+    <div class="kpi-value" id="kpi-loyalty-val">—</div>
+    <div class="kpi-sub">high-freq vs low-freq spend</div>
+  </div>
+</div>
+
+<!-- Charts Row 1 -->
+<div class="charts-row">
+  <div class="chart-card wide">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Monthly Revenue</div>
+        <div class="chart-sub">Dec 2010 – Dec 2011</div>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title">Customer Segments</div>
+      <div class="chart-sub">K-Means clustering</div>
+    </div>
+    <div class="chart-wrap"><canvas id="segmentDonut"></canvas></div>
+  </div>
+</div>
+
+<!-- Charts Row 2 -->
+<div class="charts-row">
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title">Churn Risk Distribution</div>
+      <div class="chart-sub">By probability band</div>
+    </div>
+    <div class="chart-wrap"><canvas id="churnChart"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title">CLV Distribution</div>
+      <div class="chart-sub">Predicted lifetime value (£)</div>
+    </div>
+    <div class="chart-wrap"><canvas id="clvChart"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title">Pareto Curve</div>
+      <div class="chart-sub">Revenue concentration</div>
+    </div>
+    <div class="chart-wrap"><canvas id="paretoChart"></canvas></div>
+  </div>
+</div>
+
+<!-- Charts Row 3 -->
+<div class="charts-row">
+  <div class="chart-card wide">
+    <div class="chart-header">
+      <div class="chart-title">Top 10 Products by Revenue</div>
+      <div class="chart-sub">All-time bestsellers</div>
+    </div>
+    <div class="chart-wrap tall"><canvas id="productsChart"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title">Segment Performance</div>
+      <div class="chart-sub">Revenue share & avg spend</div>
+    </div>
+    <div class="segment-table" id="segment-table">
+      <div class="seg-row seg-header">
+        <span>Segment</span><span>Customers</span><span>Revenue %</span><span>Avg Spend</span><span>Churn</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

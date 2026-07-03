@@ -45,14 +45,13 @@ class CustomerSegmentation:
         self.k_range = k_range
         self.random_state = random_state
         self.scaler = StandardScaler()
-        self.model: KMeans | None = None
-        self.best_k: int | None = None
-        self.feature_cols: list[str] = []
-        self.elbow_data: dict = {}
+        self.model = None  # KMeans
+        self.best_k = None  # int
+        self.feature_cols = []
 
     # ── public methods ──────────────────────────────
 
-    def fit(self, rfm: pd.DataFrame, feature_cols: list[str] | None = None) -> "CustomerSegmentation":
+    def fit(self, rfm: pd.DataFrame, feature_cols=None) -> "CustomerSegmentation":
         """
         Fit the segmentation model.
 

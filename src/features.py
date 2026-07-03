@@ -24,7 +24,7 @@ import pandas as pd
 # Public API
 # ──────────────────────────────────────────────
 
-def build_rfm(df: pd.DataFrame, snapshot_date: pd.Timestamp | None = None) -> pd.DataFrame:
+def build_rfm(df: pd.DataFrame, snapshot_date: "pd.Timestamp | None" = None) -> pd.DataFrame:
     """
     Compute RFM + derived features for each customer.
 

@@ -1,20 +1,6 @@
-# Core data
 pandas>=2.0
 numpy>=1.24
-openpyxl>=3.1          # read .xlsx files
-
-# Machine learning
 scikit-learn>=1.3
 joblib>=1.3
-xgboost>=2.0           # optional — comment out if not needed
-
-# Visualisation
-matplotlib>=3.7
-seaborn>=0.13
-
-# Deployment
-streamlit>=1.32
-
-# Notebooks
-jupyter>=1.0
-ipykernel>=6.0
+flask>=3.0
+gunicorn>=21.0

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Customers — CustomerIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Customer Explorer</h1>
+    <p class="page-sub">Browse, filter, and sort all 4,338 customers</p>
+  </div>
+  <div class="header-count" id="header-count">Loading...</div>
+</div>
+
+<!-- Filters -->
+<div class="filter-bar">
+  <div class="filter-group">
+    <label class="filter-label">Segment</label>
+    <select id="filter-segment" class="filter-select" onchange="applyFilters()">
+      <option value="all">All Segments</option>
+      <option value="High-Value">High-Value 💎</option>
+      <option value="Loyal">Loyal 🌟</option>
+      <option value="At-Risk">At-Risk ⚠️</option>
+      <option value="Low-Value">Low-Value</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-label">Sort by</label>
+    <select id="filter-sort" class="filter-select" onchange="applyFilters()">
+      <option value="Monetary">Total Spend</option>
+      <option value="Recency">Recency</option>
+      <option value="Frequency">Frequency</option>
+      <option value="ChurnProbability">Churn Risk</option>
+      <option value="PredictedCLV_GBP">Predicted CLV</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-label">Order</label>
+    <select id="filter-order" class="filter-select" onchange="applyFilters()">
+      <option value="desc">Highest first</option>
+      <option value="asc">Lowest first</option>
+    </select>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="table-card">
+  <div class="table-wrap">
+    <table class="data-table customers-table">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>Segment</th>
+          <th>Recency (days)</th>
+          <th>Frequency</th>
+          <th>Total Spend</th>
+          <th>Churn Risk</th>
+          <th>Predicted CLV</th>
+        </tr>
+      </thead>
+      <tbody id="customers-tbody">
+        <tr><td colspan="7" class="loading-row">Loading customers...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" id="pagination">
+    <button class="page-btn" id="prev-btn" onclick="changePage(-1)" disabled>← Prev</button>
+    <span class="page-info" id="page-info">Page 1</span>
+    <button class="page-btn" id="next-btn" onclick="changePage(1)">Next →</button>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/customers.js') }}"></script>
+{% endblock %}

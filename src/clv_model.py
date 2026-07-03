@@ -45,7 +45,7 @@ class CLVModel:
 
     # ── public methods ──────────────────────────────
 
-    def fit(self, rfm: pd.DataFrame, feature_cols: list[str] | None = None,
+    def fit(self, rfm: pd.DataFrame, feature_cols=None,
             target_col: str = "LogMonetary") -> "CLVModel":
         """
         Train all regressors and select the best by R².
@@ -128,7 +128,7 @@ class CLVModel:
         }
         return pd.DataFrame(rows).T.round(4)
 
-    def feature_importances(self) -> pd.Series | None:
+    def feature_importances(self):
         """Feature importances for tree-based models; None otherwise."""
         self._check_fitted()
         if hasattr(self.best_model, "feature_importances_"):

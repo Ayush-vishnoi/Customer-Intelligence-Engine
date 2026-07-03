@@ -55,7 +55,7 @@ class ChurnModel:
 
     # ── public methods ──────────────────────────────
 
-    def fit(self, rfm: pd.DataFrame, feature_cols: list[str] | None = None,
+    def fit(self, rfm: pd.DataFrame, feature_cols=None,
             target_col: str = "Churned") -> "ChurnModel":
         """
         Train all classifiers and select the best by F1 score.
@@ -131,7 +131,7 @@ class ChurnModel:
         }
         return pd.DataFrame(rows).T.round(3)
 
-    def feature_importances(self) -> pd.Series | None:
+    def feature_importances(self):
         """
         Return feature importances for tree-based best models.
         Returns None for Logistic Regression.

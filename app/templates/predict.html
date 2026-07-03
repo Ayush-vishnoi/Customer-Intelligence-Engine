@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Predict — CustomerIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Customer Predictor</h1>
+    <p class="page-sub">Segment, churn risk, and lifetime value in real time</p>
+  </div>
+</div>
+
+<div class="predict-layout">
+
+  <!-- Single Prediction -->
+  <div class="predict-card">
+    <div class="predict-card-header">
+      <div class="predict-card-icon">⚡</div>
+      <div>
+        <div class="predict-card-title">Single Customer</div>
+        <div class="predict-card-sub">Enter RFM values to get instant predictions</div>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Recency <span class="form-hint">days since last purchase</span></label>
+        <div class="input-wrap">
+          <input type="range" id="recency-slider" min="1" max="374" value="45" class="slider" oninput="syncInput('recency')">
+          <input type="number" id="recency-input" value="45" min="1" max="374" class="num-input" oninput="syncSlider('recency')">
+        </div>
+        <div class="slider-labels"><span>1 day</span><span>374 days</span></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Frequency <span class="form-hint">number of orders</span></label>
+        <div class="input-wrap">
+          <input type="range" id="frequency-slider" min="1" max="100" value="5" class="slider" oninput="syncInput('frequency')">
+          <input type="number" id="frequency-input" value="5" min="1" max="209" class="num-input" oninput="syncSlider('frequency')">
+        </div>
+        <div class="slider-labels"><span>1 order</span><span>100+ orders</span></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Monetary <span class="form-hint">total spend £</span></label>
+        <div class="input-wrap">
+          <input type="range" id="monetary-slider" min="10" max="10000" value="800" step="10" class="slider" oninput="syncInput('monetary')">
+          <input type="number" id="monetary-input" value="800" min="1" class="num-input" oninput="syncSlider('monetary')">
+        </div>
+        <div class="slider-labels"><span>£10</span><span>£10,000+</span></div>
+      </div>
+    </div>
+
+    <button class="predict-btn" onclick="runPredict()">
+      <span id="predict-btn-text">Run Prediction</span>
+      <div id="predict-spinner" class="btn-spinner hidden"></div>
+    </button>
+
+    <!-- Result Panel -->
+    <div id="result-panel" class="result-panel hidden">
+      <div class="result-segment" id="result-segment-badge">—</div>
+      <div class="result-grid">
+        <div class="result-metric">
+          <div class="result-metric-label">Churn Probability</div>
+          <div class="result-metric-value" id="result-churn">—</div>
+          <div class="churn-bar-wrap">
+            <div class="churn-bar-fill" id="result-churn-bar"></div>
+          </div>
+          <div class="result-metric-tag" id="result-risk-tag">—</div>
+        </div>
+        <div class="result-metric">
+          <div class="result-metric-label">Predicted CLV</div>
+          <div class="result-metric-value" id="result-clv">—</div>
+          <div class="result-metric-tag teal">lifetime value</div>
+        </div>
+      </div>
+      <div class="result-insight" id="result-insight"></div>
+    </div>
+  </div>
+
+  <!-- Batch Prediction -->
+  <div class="predict-card">
+    <div class="predict-card-header">
+      <div class="predict-card-icon">📊</div>
+      <div>
+        <div class="predict-card-title">Batch Prediction</div>
+        <div class="predict-card-sub">Upload CSV with CustomerID, Recency, Frequency, Monetary</div>
+      </div>
+    </div>
+
+    <div class="upload-zone" id="upload-zone"
+         ondragover="event.preventDefault(); this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event)">
+      <div class="upload-icon">⬆</div>
+      <div class="upload-text">Drop CSV here or <label for="csv-file" class="upload-link">browse</label></div>
+      <div class="upload-hint">Required columns: CustomerID, Recency, Frequency, Monetary</div>
+      <input type="file" id="csv-file" accept=".csv" class="hidden" onchange="handleFile(this.files[0])">
+    </div>
+
+    <div id="batch-status" class="batch-status hidden"></div>
+
+    <div id="batch-result" class="batch-result hidden">
+      <div class="batch-summary" id="batch-summary"></div>
+      <div class="table-wrap">
+        <table class="data-table" id="batch-table">
+          <thead id="batch-thead"></thead>
+          <tbody id="batch-tbody"></tbody>
+        </table>
+      </div>
+      <button class="download-btn" id="download-btn" onclick="downloadResults()">
+        ↓ Download Results CSV
+      </button>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/predict.js') }}"></script>
+{% endblock %}

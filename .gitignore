@@ -1,0 +1,27 @@
+# Raw data (too large for git — 23MB xlsx)
+data/Online_Retail.xlsx
+
+# Generated figures (re-created by main.py)
+reports/figures/*.png
+
+# Notebooks (exploratory only)
+notebooks/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Env
+.env
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.DS_Store

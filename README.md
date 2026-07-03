@@ -28,12 +28,37 @@ pip install -r requirements.txt
 # 3. Add the dataset
 # Place Online_Retail.xlsx in data/
 
-# 4. Run the full pipeline
+# 4. Run the full ML pipeline (trains models, generates charts)
 python main.py
 
-# 5. Launch the Streamlit app
-streamlit run app/app.py
+# 5. Launch the Flask web app
+python run.py
+
+# Then open: http://localhost:5000
 ```
+
+## Flask Web App — Pages
+
+| Page | URL | Description |
+|------|-----|-------------|
+| Dashboard | `/` | KPI cards, 6 interactive charts, segment table |
+| Predictor | `/predict` | Single customer + batch CSV prediction |
+| Customers | `/customers` | Browse all 4,338 customers with filters |
+
+## API Endpoints
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/api/kpis` | Summary KPIs (revenue, churn rate, CLV, pareto) |
+| GET | `/api/segments` | Segment breakdown with revenue share |
+| GET | `/api/revenue-monthly` | Monthly revenue time series |
+| GET | `/api/churn-stats` | Churn risk band distribution |
+| GET | `/api/clv-distribution` | CLV histogram data |
+| GET | `/api/pareto` | Pareto curve data points |
+| GET | `/api/top-products` | Top 10 products by revenue |
+| GET | `/api/customers` | Paginated, filterable customer list |
+| POST | `/api/predict` | Single customer prediction (JSON) |
+| POST | `/api/batch` | Batch CSV prediction |
 
 ---
 
