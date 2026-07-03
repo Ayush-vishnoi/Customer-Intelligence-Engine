@@ -275,7 +275,7 @@ function renderSegmentTable(segments) {
 document.addEventListener('DOMContentLoaded', () => {
   fetchAll().then(({ kpis, segments, revenue, churn, clv, pareto, products }) => {
     if (!kpis) {
-      document.getElementById('kpi-grid').innerHTML = '<div style="color:#f43f5e;padding:20px;grid-column:1/-1">⚠️ Could not connect to server. Make sure Flask is running on port 8080.</div>';
+      document.getElementById('kpi-grid').innerHTML = '<div style="color:#f43f5e;padding:20px;grid-column:1/-1">⚠️ Failed to load dashboard data. Please refresh the page.</div>';
       return;
     }
     renderKPIs(kpis);

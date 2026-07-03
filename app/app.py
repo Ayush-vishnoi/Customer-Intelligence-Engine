@@ -29,6 +29,9 @@ DATA_DIR   = os.path.join(ROOT_DIR, "data", "processed")
 MODELS_DIR = os.path.join(ROOT_DIR, "models")
 
 app        = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"), static_folder=os.path.join(BASE_DIR, "static"))
+
+from whitenoise import WhiteNoise
+app.wsgi_app = WhiteNoise(app.wsgi_app, root=os.path.join(BASE_DIR, "static"), prefix="static")
 _predictor = None
 
 def get_predictor():
